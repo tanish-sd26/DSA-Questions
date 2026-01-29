@@ -11,5 +11,5 @@ console.log (result);
 
 let f = 'x';
 let f1 = 'y';
-let f2 = f + "" + f1;
+let f2 = f1+ " " + f;
 console.log(f2);
