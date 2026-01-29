@@ -7,3 +7,9 @@ let str6 = "H";
 let str7 = "A";
 
 let result = str1 + str2 + str3 + str4 + str5 + str6 + str7;
+console.log (result);
+
+let f = 'x';
+let f1 = 'y';
+let f2 = f + "" + f1;
+console.log(f2);
