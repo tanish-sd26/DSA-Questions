@@ -32,3 +32,7 @@ let name ="tanuj";
 console.log(name[3]);
 //length property
 console.log(name[name.length-1]);
+
+//multiple notation
+let firstTwo = name[2] + name[4];
+console.log(firstTwo);
