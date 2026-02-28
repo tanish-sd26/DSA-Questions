@@ -36,3 +36,7 @@ console.log(name[name.length-1]);
 //multiple notation
 let firstTwo = name[2] + name[4];
 console.log(firstTwo);
+
+//escape character and \n for new lines 
+let myLife = 'Hi, I am a software developer.\n I love depveloping my ideas though a projects when not even any one watch but i still work on it. cause it\'s my passion.';
+console.log(myLife); 
