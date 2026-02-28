@@ -26,3 +26,9 @@ console.log(typeof b);
 let string1 = "hann";
 let string2 = "ji";
 console.log(string1 + "  " + string2);
+
+// bracket notation
+let name ="tanuj";
+console.log(name[3]);
+//length property
+console.log(name[name.length-1]);
