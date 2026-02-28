@@ -47,3 +47,7 @@ const name1 = "tanisha";
 const greeting = `my name is ${name1} andmy age is ${age}!`;
 
 console.log(greeting);
+
+//indexof method
+let position = myLife.indexOf("love");
+console.log(position);
