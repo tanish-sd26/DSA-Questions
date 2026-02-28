@@ -20,3 +20,9 @@ console.log("Second Story:" +secondStory);
 
 let a = "tanisha";
 console.log(typeof a);
+let b ;
+console.log(typeof b);
+
+let string1 = "hann";
+let string2 = "ji";
+console.log(string1 + "  " + string2);
