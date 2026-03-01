@@ -28,3 +28,10 @@ console.log(`Here is an example of accessing the last letter in the word ${subje
 
 const lastCharacter = subject[subject.length - 1];
 console.log(lastCharacter);
+
+//indexOF method
+const learningIsFunSentence = "Learning is fun.";
+
+console.log("Here are examples of finding the positions of substrings in the sentence.");
+
+console.log(learningIsFunSentence.indexOf("Learning"));
