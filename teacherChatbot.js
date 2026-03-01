@@ -18,3 +18,6 @@ console.log(subject.length);
 console.log(`Here is an example of using the length property on the word ${topic}.`);
 console.log(topic.length);
 console.log(`Here is an example of accessing the first letter in the word ${subject}.`);
+
+//bracket notation
+console.log(subject[0]);
