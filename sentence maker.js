@@ -44,7 +44,7 @@ console.log(myLife);
 //template literals
 const age = "19";
 const name1 = "tanisha";
-const greeting = `my name is ${name1} andmy age is ${age}!`;
+const greeting = `my name is ${name1} and my age is ${age}!`;
 
 console.log(greeting);
 
