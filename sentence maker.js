@@ -51,3 +51,7 @@ console.log(greeting);
 //indexof method
 let position = myLife.indexOf("love");
 console.log(position);
+
+//prompt method
+let userName = prompt("what is your name?");
+console.log("Hello " + userName + "!");
