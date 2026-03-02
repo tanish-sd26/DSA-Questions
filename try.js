@@ -23,3 +23,11 @@ function createFunction() {
 }
 const f = createFunction();
 console.log(f(3, 4)); // 7
+
+//counter
+function createCounter(n){
+    let count = n;
+    return function() {
+        return count++;
+    };
+}
