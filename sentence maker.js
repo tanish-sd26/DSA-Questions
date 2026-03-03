@@ -55,3 +55,14 @@ console.log(position);
 //prompt method
 let userName = prompt("what is your name?");
 console.log("Hello " + userName + "!");
+
+//map function
+function map(arr, fn) {
+    const result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        result.push(fn(arr[i], i));
+    }
+
+    return result;
+}
