@@ -10,3 +10,8 @@ function compose(functions) {
         return result;
     };
 }
+
+//function argumentsLength that returns the count of arguments
+function argumentsLength(...args) {
+    return args.length;
+}
