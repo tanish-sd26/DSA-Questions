@@ -15,3 +15,17 @@ function compose(functions) {
 function argumentsLength(...args) {
     return args.length;
 }
+
+//Allow one function call
+function once(fn) {
+    let called = false;
+
+    return function(...args) {
+        if (called) {
+            return undefined;
+        }
+
+        called = true;
+        return fn(...args);
+    };
+}
