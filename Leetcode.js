@@ -79,3 +79,23 @@ var cancellable = function(fn, args, t) {
         clearInterval(intervalId); // Stop the repeated execution of the function
     };
 };
+
+//2637. promise time limit. 
+var timeLimit = function(fn, t) {
+
+    // Return a new async function that wraps the original function
+    return async function(...args) {
+
+        // Create a promise that rejects after t milliseconds
+        const timeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => reject("Time Limit Exceeded"), t);
+        });
+
+        // Call the original async function with the provided arguments
+        const fnPromise = fn(...args);
+
+        // Return whichever promise finishes first (function result or timeout)
+        return Promise.race([fnPromise, timeoutPromise]);
+    };
+
+};
