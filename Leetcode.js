@@ -52,3 +52,8 @@ var addTwoPromises = async function(promise1, promise2) {
     const [value1, value2] = await Promise.all([promise1, promise2]);
     return value1 + value2;
 };
+
+// 2621. sleep. Returns a promise that resolves after the specified milliseconds
+function sleep(millis) {
+    return new Promise(resolve => setTimeout(resolve, millis));
+}
