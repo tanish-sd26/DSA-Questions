@@ -99,3 +99,64 @@ var timeLimit = function(fn, t) {
     };
 
 };
+//2622. Time Limited Cache
+// Create a class for Time Limited Cache
+var TimeLimitedCache = function() {
+
+    // Initialize a Map to store key -> {value, timeoutId}
+    this.cache = new Map();
+
+};
+
+/** 
+ * @param {number} key
+ * @param {number} value
+ * @param {number} duration
+ * @return {boolean}
+ */
+TimeLimitedCache.prototype.set = function(key, value, duration) {
+
+    // Check if key already exists and is not expired
+    const exists = this.cache.has(key);
+
+    // If key exists clear the previous timeout
+    if (exists) {
+        clearTimeout(this.cache.get(key).timeoutId);
+    }
+
+    // Create a timeout that deletes the key after duration
+    const timeoutId = setTimeout(() => {
+        this.cache.delete(key);
+    }, duration);
+
+    // Store value and timeoutId in the map
+    this.cache.set(key, { value, timeoutId });
+
+    // Return true if key existed before and was unexpired
+    return exists;
+};
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+TimeLimitedCache.prototype.get = function(key) {
+
+    // If key does not exist return -1
+    if (!this.cache.has(key)) {
+        return -1;
+    }
+
+    // Return the stored value
+    return this.cache.get(key).value;
+};
+
+/**
+ * @return {number}
+ */
+TimeLimitedCache.prototype.count = function() {
+
+    // Return number of unexpired keys
+    return this.cache.size;
+
+};
