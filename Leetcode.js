@@ -160,3 +160,27 @@ TimeLimitedCache.prototype.count = function() {
     return this.cache.size;
 
 };
+
+//2627. Debounce
+// Return a debounced version of function fn that delays execution by t ms and cancels previous calls within that window
+var debounce = function(fn, t) {
+
+    // Store the timeout id to track scheduled execution
+    let timer = null;
+
+    // Return a new function that will be the debounced version
+    return function(...args) {
+
+        // Clear the previous scheduled execution if function is called again
+        clearTimeout(timer);
+
+        // Schedule the function to run after t milliseconds
+        timer = setTimeout(() => {
+
+            // Execute the original function with the latest arguments
+            fn(...args);
+
+        }, t);
+    };
+
+};
