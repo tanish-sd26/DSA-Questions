@@ -66,3 +66,16 @@ function cancellable(fn, args, t) {
         clearTimeout(timerId);
     };
 }
+//2725. Interval cancellation. Schedules fn to run every t ms and returns a cancel function that clears the interval
+var cancellable = function(fn, args, t) {
+
+    fn(...args); // Immediately execute the function with the provided arguments
+
+    const intervalId = setInterval(() => {
+        fn(...args); // Execute the function again every t milliseconds
+    }, t);
+
+    return function cancelFn() {
+        clearInterval(intervalId); // Stop the repeated execution of the function
+    };
+};
