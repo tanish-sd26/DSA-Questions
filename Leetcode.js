@@ -58,7 +58,7 @@ function sleep(millis) {
     return new Promise(resolve => setTimeout(resolve, millis));
 }
 
-// 2707. Cancellable. Schedules fn to run after t ms and returns a cancel function that clears the timer
+// 2715. Cancellable. Schedules fn to run after t ms and returns a cancel function that clears the timer
 function cancellable(fn, args, t) {
     const timerId = setTimeout(() => fn(...args), t);
 
