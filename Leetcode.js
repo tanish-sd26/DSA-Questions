@@ -57,3 +57,12 @@ var addTwoPromises = async function(promise1, promise2) {
 function sleep(millis) {
     return new Promise(resolve => setTimeout(resolve, millis));
 }
+
+// 2707. Cancellable. Schedules fn to run after t ms and returns a cancel function that clears the timer
+function cancellable(fn, args, t) {
+    const timerId = setTimeout(() => fn(...args), t);
+
+    return function cancelFn() {
+        clearTimeout(timerId);
+    };
+}
