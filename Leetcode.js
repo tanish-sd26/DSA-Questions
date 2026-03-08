@@ -311,3 +311,22 @@ var join = function(arr1, arr2) {
     return Array.from(map.values()).sort((a, b) => a.id - b.id);
 
 };
+
+//2625.Nested Array Flattening. Flatten a nested array up to depth n
+var flat = function(arr, n) {
+    let res = [];
+
+    // helper function to recursively flatten till depth n
+    function dfs(array, depth) {
+        for (let el of array) {
+            if (Array.isArray(el) && depth < n) {
+                dfs(el, depth + 1); // go deeper if depth allowed
+            } else {
+                res.push(el); // otherwise push element as it is
+            }
+        }
+    }
+
+    dfs(arr, 0);
+    return res;
+};
