@@ -231,3 +231,19 @@ var isEmpty = function(obj) {
     return Object.keys(obj).length === 0;
 
 };
+
+//2677.Chunk Array. Split the array into smaller subarrays (chunks) of given size
+var chunk = function(arr, size) {
+
+    const result = [];
+
+    for (let i = 0; i < arr.length; i += size) {
+
+        // take a slice of length = size and push into result
+        result.push(arr.slice(i, i + size));
+
+    }
+
+    return result;
+
+};
