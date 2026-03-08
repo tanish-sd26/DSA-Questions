@@ -217,3 +217,17 @@ var promiseAll = function(functions) {
     });
 
 };
+
+//2727.Is Object Empty. 
+// Check whether the given JSON object or array has no elements or key-value pairs
+var isEmpty = function(obj) {
+
+    // If obj is an array, check its length
+    if (Array.isArray(obj)) {
+        return obj.length === 0;
+    }
+
+    // If obj is an object, check number of keys
+    return Object.keys(obj).length === 0;
+
+};
