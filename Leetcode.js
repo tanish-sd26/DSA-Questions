@@ -184,3 +184,36 @@ var debounce = function(fn, t) {
     };
 
 };
+
+// Run all async functions in parallel and resolve with results in order, or reject immediately on first failure
+var promiseAll = function(functions) {
+
+    return new Promise((resolve, reject) => {
+
+        const results = new Array(functions.length);
+        let completed = 0;
+
+        functions.forEach((fn, index) => {
+
+            fn()
+                .then((value) => {
+
+                    // store result at correct index to maintain order
+                    results[index] = value;
+
+                    completed++;
+
+                    // resolve when all promises complete
+                    if (completed === functions.length) {
+                        resolve(results);
+                    }
+
+                })
+                // reject immediately if any promise fails
+                .catch(reject);
+
+        });
+
+    });
+
+};
