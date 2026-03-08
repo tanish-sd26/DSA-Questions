@@ -284,3 +284,30 @@ var sortBy = function(arr, fn) {
     return arr.sort((a, b) => fn(a) - fn(b));
 
 };
+
+//2722. Join two arrays of objects by id, merge objects with same id (arr2 overrides arr1), and return result sorted by id
+var join = function(arr1, arr2) {
+
+    const map = new Map();
+
+    // store all objects from arr1 using id as key
+    for (const obj of arr1) {
+        map.set(obj.id, obj);
+    }
+
+    // merge objects from arr2
+    for (const obj of arr2) {
+
+        if (map.has(obj.id)) {
+            // merge objects, arr2 values override arr1
+            map.set(obj.id, { ...map.get(obj.id), ...obj });
+        } else {
+            map.set(obj.id, obj);
+        }
+
+    }
+
+    // convert map values to array and sort by id
+    return Array.from(map.values()).sort((a, b) => a.id - b.id);
+
+};
