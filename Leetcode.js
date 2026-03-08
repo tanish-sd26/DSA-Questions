@@ -185,7 +185,7 @@ var debounce = function(fn, t) {
 
 };
 
-// Run all async functions in parallel and resolve with results in order, or reject immediately on first failure
+//2721. Run all async functions in parallel and resolve with results in order, or reject immediately on first failure
 var promiseAll = function(functions) {
 
     return new Promise((resolve, reject) => {
