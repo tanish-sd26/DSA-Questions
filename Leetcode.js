@@ -277,3 +277,10 @@ Array.prototype.groupBy = function(fn) {
     }
     return result;
 };
+
+// Sort the array in ascending order based on the numeric value returned by fn for each element
+var sortBy = function(arr, fn) {
+
+    return arr.sort((a, b) => fn(a) - fn(b));
+
+};
