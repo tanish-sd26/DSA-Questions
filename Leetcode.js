@@ -256,3 +256,24 @@ Array.prototype.last = function() {
     return this[this.length - 1];
 
 };
+
+//2619. Array prototype last. // Extend Array prototype to add groupBy(fn) which groups elements based on the key returned by fn
+Array.prototype.groupBy = function(fn) {
+
+    const result = {};
+
+    for (const item of this) {
+
+        const key = fn(item);
+
+        // create new group if key does not exist
+        if (!result[key]) {
+            result[key] = [];
+        }
+
+        // push item into the corresponding group
+        result[key].push(item);
+
+    }
+    return result;
+};
