@@ -247,3 +247,12 @@ var chunk = function(arr, size) {
     return result;
 
 };
+//2619.Array prototype last. 
+// Extend Array prototype to add a last() method that returns the last element or -1 if the array is empty
+Array.prototype.last = function() {
+
+    if (this.length === 0) return -1;
+
+    return this[this.length - 1];
+
+};
