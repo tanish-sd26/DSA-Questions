@@ -398,3 +398,22 @@ class EventEmitter {
         return res;
     }
 }
+
+//Array wrapper 
+//ArrayWrapper: supports + addition & String() formatting
+class ArrayWrapper {
+
+    constructor(nums) {
+        this.nums = nums;
+    }
+
+    // JS tries valueOf() when objects are used with + operator
+    valueOf() {
+        return this.nums.reduce((sum, n) => sum + n, 0);
+    }
+
+    // String(obj) calls toString()
+    toString() {
+        return `[${this.nums.join(',')}]`;
+    }
+}
