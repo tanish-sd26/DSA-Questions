@@ -460,3 +460,13 @@ class Calculator {
         return this.result;
     }
 }
+
+//2618. Check if objectinstance of class.
+// Create a counter that returns increasing values starting from n
+var createCounter = function(n) {
+
+    return function() {
+        return n++;
+    };
+
+};
