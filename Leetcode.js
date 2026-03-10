@@ -520,3 +520,35 @@ Array.prototype.snail = function(rowsCount, colsCount) {
 
     return res;
 };
+
+//memoize II
+// Memoize function using argument reference based caching
+var memoize = function(fn) {
+
+    const cache = new Map();
+
+    return function(...args) {
+
+        let curr = cache;
+
+        for (let i = 0; i < args.length; i++) {
+
+            const arg = args[i];
+
+            if (!curr.has(arg)) {
+                curr.set(arg, new Map());
+            }
+
+            curr = curr.get(arg);
+        }
+
+        if (curr.has("result")) {
+            return curr.get("result");
+        }
+
+        const result = fn(...args);
+        curr.set("result", result);
+
+        return result;
+    };
+};
