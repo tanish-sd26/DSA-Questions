@@ -330,3 +330,5 @@ var flat = function(arr, n) {
     dfs(arr, 0);
     return res;
 };
+
+//compact object 
