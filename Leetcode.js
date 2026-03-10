@@ -332,3 +332,26 @@ var flat = function(arr, n) {
 };
 
 //compact object 
+// Recursively remove all keys with falsy values from objects and arrays
+var compactObject = function(obj) {
+
+    if (!obj) return false;                 // remove falsy values
+    if (typeof obj !== "object") return obj; // primitive truthy value
+
+    if (Array.isArray(obj)) {
+        const res = [];
+        for (let val of obj) {
+            const compacted = compactObject(val);
+            if (compacted) res.push(compacted);
+        }
+        return res;
+    }
+
+    const res = {};
+    for (let key in obj) {
+        const compacted = compactObject(obj[key]);
+        if (compacted) res[key] = compacted;
+    }
+
+    return res;
+};
