@@ -355,3 +355,46 @@ var compactObject = function(obj) {
 
     return res;
 };
+
+//Event Emitter 
+// EventEmitter implementation
+class EventEmitter {
+
+    constructor() {
+        this.events = {}; // eventName -> callbacks
+    }
+
+    subscribe(eventName, callback) {
+
+        if (!this.events[eventName]) {
+            this.events[eventName] = [];
+        }
+
+        this.events[eventName].push(callback);
+
+        return {
+            unsubscribe: () => {
+
+                const idx = this.events[eventName].indexOf(callback);
+
+                if (idx !== -1) {
+                    this.events[eventName].splice(idx, 1);
+                }
+
+            }
+        };
+    }
+
+    emit(eventName, args = []) {
+
+        if (!this.events[eventName]) return [];
+
+        const res = [];
+
+        for (const cb of this.events[eventName]) {
+            res.push(cb(...args));
+        }
+
+        return res;
+    }
+}
