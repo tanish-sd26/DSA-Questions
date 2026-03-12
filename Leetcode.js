@@ -552,3 +552,16 @@ var memoize = function(fn) {
         return result;
     };
 };
+
+//2648. Fibonacci sequence.
+// Generator that yields Fibonacci numbers indefinitely
+var fibGenerator = function* () {
+
+    let a = 0, b = 1;
+
+    while (true) {
+        yield a;
+        [a, b] = [b, a + b];
+    }
+
+};
