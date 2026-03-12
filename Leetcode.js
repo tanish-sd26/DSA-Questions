@@ -582,3 +582,41 @@ var inorderTraversal = function* (arr) {
     }
 
 };
+
+// Run generator with cancellation support
+var cancellable = function(generator) {
+
+    let cancel;
+
+    const promise = new Promise((resolve, reject) => {
+
+        cancel = () => step("throw", "Cancelled");
+
+        function step(type, value) {
+
+            let result;
+
+            try {
+                result = generator[type](value);
+            } catch (err) {
+                reject(err);
+                return;
+            }
+
+            const { value: yielded, done } = result;
+
+            if (done) {
+                resolve(yielded);
+                return;
+            }
+
+            Promise.resolve(yielded)
+                .then(v => step("next", v))
+                .catch(e => step("throw", e));
+        }
+
+        step("next");
+    });
+
+    return [cancel, promise];
+};
