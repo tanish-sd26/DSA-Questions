@@ -620,3 +620,17 @@ var cancellable = function(generator) {
 
     return [cancel, promise];
 };
+
+// Add callPolyfill to all functions
+Function.prototype.callPolyfill = function(obj, ...args) {
+
+    const fnSymbol = Symbol(); // unique property
+
+    obj[fnSymbol] = this; // attach function to object
+
+    const result = obj[fnSymbol](...args); // call with correct this
+
+    delete obj[fnSymbol]; // cleanup
+
+    return result;
+};
