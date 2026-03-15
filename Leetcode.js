@@ -651,3 +651,83 @@ var twoSum = function(nums, target) {
         map.set(nums[i], i);
     }
 };
+
+//3600
+// Binary search stability + DSU to check if spanning tree possible with ≤k upgrades
+var maxStability = function(n, edges, k) {
+
+    class DSU {
+        constructor(n){
+            this.parent = Array(n).fill(0).map((_,i)=>i);
+            this.rank = Array(n).fill(0);
+        }
+        find(x){
+            if(this.parent[x]!==x) this.parent[x]=this.find(this.parent[x]);
+            return this.parent[x];
+        }
+        union(a,b){
+            let pa=this.find(a), pb=this.find(b);
+            if(pa===pb) return false;
+            if(this.rank[pa]<this.rank[pb]) [pa,pb]=[pb,pa];
+            this.parent[pb]=pa;
+            if(this.rank[pa]===this.rank[pb]) this.rank[pa]++;
+            return true;
+        }
+    }
+
+    function can(stability){
+
+        const dsu = new DSU(n);
+        let upgrades = 0;
+        let used = 0;
+
+        for(const [u,v,s,must] of edges){
+            if(must){
+                if(s < stability) return false;
+                if(!dsu.union(u,v)) return false;
+                used++;
+            }
+        }
+
+        const optional = [];
+
+        for(const [u,v,s,must] of edges){
+            if(!must) optional.push([u,v,s]);
+        }
+
+        optional.sort((a,b)=>b[2]-a[2]);
+
+        for(const [u,v,s] of optional){
+
+            if(used===n-1) break;
+            if(dsu.find(u)===dsu.find(v)) continue;
+
+            if(s>=stability){
+                dsu.union(u,v);
+                used++;
+            }
+            else if(2*s>=stability && upgrades<k){
+                upgrades++;
+                dsu.union(u,v);
+                used++;
+            }
+        }
+
+        return used===n-1;
+    }
+
+    let left = 0, right = 2e5, ans = -1;
+
+    while(left<=right){
+        const mid = Math.floor((left+right)/2);
+
+        if(can(mid)){
+            ans = mid;
+            left = mid+1;
+        }else{
+            right = mid-1;
+        }
+    }
+
+    return ans;
+};
