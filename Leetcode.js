@@ -731,3 +731,57 @@ var maxStability = function(n, edges, k) {
 
     return ans;
 };
+
+var getBiggestThree = function(grid) {
+    
+    const m = grid.length;
+    const n = grid[0].length;
+    const set = new Set();
+
+    function getSum(r, c, size) {
+
+        let sum = 0;
+
+        let i = r - size, j = c; // start from top
+
+        // ↘
+        for (let k = 0; k < size; k++) {
+            sum += grid[i++][j++];
+        }
+
+        // ↙
+        for (let k = 0; k < size; k++) {
+            sum += grid[i++][j--];
+        }
+
+        // ↖
+        for (let k = 0; k < size; k++) {
+            sum += grid[i--][j--];
+        }
+
+        // ↗
+        for (let k = 0; k < size; k++) {
+            sum += grid[i--][j++];
+        }
+
+        return sum;
+    }
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+
+            // single cell
+            set.add(grid[i][j]);
+
+            // rhombus
+            for (let size = 1;
+                 i - size >= 0 && i + size < m && j - size >= 0 && j + size < n;
+                 size++) {
+
+                set.add(getSum(i, j, size));
+            }
+        }
+    }
+
+    return Array.from(set).sort((a,b)=>b-a).slice(0,3);
+};
