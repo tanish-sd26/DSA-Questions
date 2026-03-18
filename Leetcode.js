@@ -785,3 +785,48 @@ var getBiggestThree = function(grid) {
 
     return Array.from(set).sort((a,b)=>b-a).slice(0,3);
 };
+
+
+// Binary Search to find minimum time required
+var minNumberOfSeconds = function(mountainHeight, workerTimes) {
+    
+    // Function to check if given time is enough
+    function canFinish(time) {
+        let totalHeight = 0;
+        
+        for (let t of workerTimes) {
+            
+            // Solve t * x*(x+1)/2 <= time
+            // => x*(x+1) <= (2*time)/t
+            let k = Math.floor((2 * time) / t);
+            
+            // Solve x using quadratic formula
+            let x = Math.floor((Math.sqrt(1 + 4 * k) - 1) / 2);
+            
+            totalHeight += x;
+            
+            // Early stop if already enough
+            if (totalHeight >= mountainHeight) return true;
+        }
+        
+        return false;
+    }
+    
+    // Binary search range
+    let left = 0;
+    let right = 1e15; // large enough upper bound
+    let ans = right;
+    
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+        
+        if (canFinish(mid)) {
+            ans = mid;
+            right = mid - 1; // try smaller time
+        } else {
+            left = mid + 1; // need more time
+        }
+    }
+    
+    return ans;
+};
