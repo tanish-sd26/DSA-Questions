@@ -830,3 +830,65 @@ var minNumberOfSeconds = function(mountainHeight, workerTimes) {
     
     return ans;
 };
+
+//2. Add two numbers
+// Add two numbers represented as linked lists
+var addTwoNumbers = function(l1, l2) {
+    
+    // Dummy node to simplify result handling
+    let dummy = new ListNode(0);
+    let current = dummy;
+    
+    let carry = 0; // store carry
+    
+    // Traverse both lists until both end
+    while (l1 !== null || l2 !== null || carry !== 0) {
+        
+        // Get values (if node exists, else 0)
+        let val1 = l1 ? l1.val : 0;
+        let val2 = l2 ? l2.val : 0;
+        
+        // Calculate sum
+        let sum = val1 + val2 + carry;
+        
+        // Update carry
+        carry = Math.floor(sum / 10);
+        
+        // Create new node with digit
+        current.next = new ListNode(sum % 10);
+        
+        // Move pointer
+        current = current.next;
+        
+        // Move l1 and l2 if possible
+        if (l1) l1 = l1.next;
+        if (l2) l2 = l2.next;
+    }
+    
+    // Return result (skip dummy node)
+    return dummy.next;
+};
+
+//3. Longest Substring Without Repeating Characters
+// Sliding window to find longest substring without repeating characters
+var lengthOfLongestSubstring = function(s) {
+    
+    let set = new Set();
+    let left = 0;
+    let maxLen = 0;
+    
+    for (let right = 0; right < s.length; right++) {
+        
+        // Remove chars until duplicate gone
+        while (set.has(s[right])) {
+            set.delete(s[left]);
+            left++;
+        }
+        
+        set.add(s[right]);
+        
+        maxLen = Math.max(maxLen, right - left + 1);
+    }
+    
+    return maxLen;
+};
