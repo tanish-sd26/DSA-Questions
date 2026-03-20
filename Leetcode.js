@@ -933,3 +933,33 @@ var findMedianSortedArrays = function(nums1, nums2) {
         }
     }
 };
+
+//5. Longest Palindromic Substring
+// Expand around center to find longest palindrome
+var longestPalindrome = function(s) {
+    
+    let start = 0, end = 0;
+    
+    function expand(l, r) {
+        while (l >= 0 && r < s.length && s[l] === s[r]) {
+            l--;
+            r++;
+        }
+        return r - l - 1; // length
+    }
+    
+    for (let i = 0; i < s.length; i++) {
+        
+        let len1 = expand(i, i);     // odd
+        let len2 = expand(i, i + 1); // even
+        
+        let maxLen = Math.max(len1, len2);
+        
+        if (maxLen > end - start) {
+            start = i - Math.floor((maxLen - 1) / 2);
+            end = i + Math.floor(maxLen / 2);
+        }
+    }
+    
+    return s.substring(start, end + 1);
+};
