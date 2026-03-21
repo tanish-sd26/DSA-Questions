@@ -963,3 +963,29 @@ var longestPalindrome = function(s) {
     
     return s.substring(start, end + 1);
 };
+
+//6. ZigZag Conversion
+// Simulate zigzag traversal using row-wise storage
+var convert = function(s, numRows) {
+    
+    if (numRows === 1 || s.length <= numRows) return s;
+    
+    let rows = Array.from({ length: numRows }, () => "");
+    
+    let currRow = 0;
+    let direction = -1; // will flip
+    
+    for (let char of s) {
+        
+        rows[currRow] += char;
+        
+        // change direction at top/bottom
+        if (currRow === 0 || currRow === numRows - 1) {
+            direction *= -1;
+        }
+        
+        currRow += direction;
+    }
+    
+    return rows.join("");
+};
