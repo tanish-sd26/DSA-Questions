@@ -989,3 +989,24 @@ var convert = function(s, numRows) {
     
     return rows.join("");
 };
+
+//7. Reverse Integer
+// Reverse integer with 32-bit overflow check
+var reverse = function(x) {
+    
+    let rev = 0;
+    
+    while (x !== 0) {
+        
+        let digit = x % 10;
+        x = (x / 10) | 0; // truncate toward 0
+        
+        // check overflow before updating rev
+        if (rev > 214748364 || (rev === 214748364 && digit > 7)) return 0;
+        if (rev < -214748364 || (rev === -214748364 && digit < -8)) return 0;
+        
+        rev = rev * 10 + digit;
+    }
+    
+    return rev;
+};
