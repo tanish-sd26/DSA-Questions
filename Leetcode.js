@@ -1010,3 +1010,38 @@ var reverse = function(x) {
     
     return rev;
 };
+
+//8. String to Integer (atoi)
+// Convert string to 32-bit signed integer (atoi)
+var myAtoi = function(s) {
+    
+    let i = 0, n = s.length;
+    
+    // 1. skip whitespace
+    while (i < n && s[i] === ' ') i++;
+    
+    // 2. handle sign
+    let sign = 1;
+    if (i < n && (s[i] === '+' || s[i] === '-')) {
+        if (s[i] === '-') sign = -1;
+        i++;
+    }
+    
+    let num = 0;
+    
+    // 3. read digits
+    while (i < n && s[i] >= '0' && s[i] <= '9') {
+        
+        let digit = s.charCodeAt(i) - 48;
+        
+        // 4. check overflow
+        if (num > 214748364 || (num === 214748364 && digit > 7)) {
+            return sign === 1 ? 2147483647 : -2147483648;
+        }
+        
+        num = num * 10 + digit;
+        i++;
+    }
+    
+    return num * sign;
+};
