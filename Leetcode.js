@@ -1105,3 +1105,28 @@ var isMatch = function(s, p) {
     
     return dp[m][n];
 };
+
+//11. Container With Most Water
+// Two pointer approach to find max water container
+var maxArea = function(height) {
+    
+    let left = 0, right = height.length - 1;
+    let maxWater = 0;
+    
+    while (left < right) {
+        
+        let h = Math.min(height[left], height[right]);
+        let w = right - left;
+        
+        maxWater = Math.max(maxWater, h * w);
+        
+        // move smaller height
+        if (height[left] < height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    
+    return maxWater;
+};
