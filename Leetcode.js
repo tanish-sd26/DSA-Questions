@@ -1045,3 +1045,23 @@ var myAtoi = function(s) {
     
     return num * sign;
 };
+
+//9. Palindrome Number
+// Check palindrome without converting to string
+var isPalindrome = function(x) {
+    
+    // negative or ends with 0 (but not 0 itself)
+    if (x < 0 || (x % 10 === 0 && x !== 0)) return false;
+    
+    let rev = 0;
+    
+    // reverse half
+    while (x > rev) {
+        let digit = x % 10;
+        rev = rev * 10 + digit;
+        x = Math.floor(x / 10);
+    }
+    
+    // even length OR odd length
+    return x === rev || x === Math.floor(rev / 10);
+};
