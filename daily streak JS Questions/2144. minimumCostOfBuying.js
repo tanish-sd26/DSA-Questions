@@ -14,4 +14,4 @@ var minimumCost = function(cost) {
     }
 
     return total;
-};
+};               
