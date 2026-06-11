@@ -19,14 +19,16 @@ var assignEdgeWeights = function(edges) {
 
     let maxDepth = 0;
 
-    const queue = [[1, 0]];
     const visited = new Array(n + 1).fill(false);
+    const queue = [[1, 0]];
 
     visited[1] = true;
 
-    while (queue.length) {
+    let front = 0;
 
-        const [node, depth] = queue.shift();
+    while (front < queue.length) {
+
+        const [node, depth] = queue[front++];
 
         maxDepth = Math.max(maxDepth, depth);
 
@@ -36,10 +38,7 @@ var assignEdgeWeights = function(edges) {
 
                 visited[nei] = true;
 
-                queue.push([
-                    nei,
-                    depth + 1
-                ]);
+                queue.push([nei, depth + 1]);
             }
         }
     }
@@ -53,8 +52,7 @@ var assignEdgeWeights = function(edges) {
         while (e > 0n) {
 
             if (e & 1n) {
-                result =
-                    (result * b) % MOD;
+                result = (result * b) % MOD;
             }
 
             b = (b * b) % MOD;
@@ -64,7 +62,5 @@ var assignEdgeWeights = function(edges) {
         return result;
     }
 
-    return Number(
-        modPow(2, maxDepth - 1)
-    );
+    return Number(modPow(2, maxDepth - 1));
 };
