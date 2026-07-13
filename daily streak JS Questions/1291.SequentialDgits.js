@@ -24,6 +24,5 @@ var sequentialDigits = function (low, high) {
             }
         }
     }
-
     return result.sort((a, b) => a - b);
 };
