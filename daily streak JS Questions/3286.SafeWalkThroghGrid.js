@@ -55,6 +55,5 @@ var findSafeWalk = function (grid, health) {
             }
         }
     }
-
     return false;
 };
