@@ -9,7 +9,8 @@
 /**
  * @param {ListNode[]} lists
  * @return {ListNode}
- */
+ **/
+
 var mergeKLists = function(lists) {
 
     class MinHeap {
