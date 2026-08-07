@@ -1,114 +1,78 @@
-/**
- * @param {string} num
- * @param {number} t
- * @return {string}
- */
-var smallestNumber = function(num, t) {
-    let T = BigInt(t);
-
-    // Factorize only by 2,3,5,7
-    const need = {2:0,3:0,5:0,7:0};
-    for (const p of [2n,3n,5n,7n]) {
-        while (T % p === 0n) {
-            need[Number(p)]++;
-            T /= p;
+var smallestNumber = function (num, t) {
+    let temp = t;
+    for (let i = 2; i <= 9; i++) {
+        while (temp % i === 0) {
+            temp /= i;
         }
     }
-    if (T !== 1n) return "-1";
-
-    const contrib = {
-        1:[0,0,0,0],
-        2:[1,0,0,0],
-        3:[0,1,0,0],
-        4:[2,0,0,0],
-        5:[0,0,1,0],
-        6:[1,1,0,0],
-        7:[0,0,0,1],
-        8:[3,0,0,0],
-        9:[0,2,0,0]
-    };
-
-    function ok(rem2, rem3, rem5, rem7, slots) {
-        const minDigits =
-            Math.ceil(rem2 / 3) +
-            Math.ceil(rem3 / 2) +
-            rem5 + rem7;
-        return minDigits <= slots;
-    }
-
-    function build(rem2, rem3, rem5, rem7, slots) {
-        let res = "";
-        for (let i = 0; i < slots; i++) {
-            for (let d = 1; d <= 9; d++) {
-                const c = contrib[d];
-                const n2 = Math.max(0, rem2 - c[0]);
-                const n3 = Math.max(0, rem3 - c[1]);
-                const n5 = Math.max(0, rem5 - c[2]);
-                const n7 = Math.max(0, rem7 - c[3]);
-
-                if (ok(n2,n3,n5,n7, slots - i - 1)) {
-                    res += String(d);
-                    rem2 = n2; rem3 = n3;
-                    rem5 = n5; rem7 = n7;
-                    break;
-                }
-            }
-        }
-        return res;
+    if (temp > 1) {
+        return "-1";
     }
 
     const n = num.length;
-    const digits = num.split("").map(Number);
+    const rem = new Array(n + 1);
+    rem[0] = t;
+    let pos = n - 1;
 
-    // Prefix factors
-    const pref = Array(n+1).fill(null);
-    pref[0] = [need[2], need[3], need[5], need[7]];
-
+    const numArr = num.split("");
     for (let i = 0; i < n; i++) {
-        const c = contrib[digits[i]] || [0,0,0,0];
-        pref[i+1] = [
-            Math.max(0, pref[i][0]-c[0]),
-            Math.max(0, pref[i][1]-c[1]),
-            Math.max(0, pref[i][2]-c[2]),
-            Math.max(0, pref[i][3]-c[3])
-        ];
+        if (numArr[i] === "0") {
+            pos = i;
+            break;
+        }
+        rem[i + 1] = Math.floor(rem[i] / gcd(rem[i], parseInt(numArr[i])));
     }
 
-    // If already valid and zero-free
-    if (!num.includes("0") && pref[n].every(x => x===0)) {
+    if (rem[n] === 1) {
         return num;
     }
 
-    // Try same length
-    for (let i = n-1; i >= 0; i--) {
-        if (digits[i] === 0) continue;
+    for (let i = pos; i >= 0; i--) {
+        while (true) {
+            numArr[i] = String.fromCharCode(numArr[i].charCodeAt(0) + 1);
+            if (numArr[i] > "9") {
+                break;
+            }
 
-        const [r2,r3,r5,r7] = pref[i];
+            let tNow = Math.floor(rem[i] / gcd(rem[i], parseInt(numArr[i])));
+            let k = 9;
 
-        for (let d = digits[i]+1; d <= 9; d++) {
-            const c = contrib[d];
-            const n2 = Math.max(0, r2-c[0]);
-            const n3 = Math.max(0, r3-c[1]);
-            const n5 = Math.max(0, r5-c[2]);
-            const n7 = Math.max(0, r7-c[3]);
+            for (let j = n - 1; j > i; j--) {
+                while (tNow % k !== 0) {
+                    k--;
+                }
+                tNow = Math.floor(tNow / k);
+                numArr[j] = String.fromCharCode("0".charCodeAt(0) + k);
+            }
 
-            const suffix = n-i-1;
-
-            if (ok(n2,n3,n5,n7,suffix)) {
-                return num.slice(0,i) + d +
-                    build(n2,n3,n5,n7,suffix);
+            if (tNow === 1) {
+                return numArr.join("");
             }
         }
     }
 
-    // Need longer length
-    let len = n+1;
-    while (true) {
-        if (ok(need[2],need[3],need[5],need[7],len-1)) {
-            return "1" + build(
-                need[2],need[3],need[5],need[7],len-1
-            );
+    let ans = [];
+    let originalT = t;
+    for (let i = 9; i > 1; i--) {
+        while (originalT % i === 0) {
+            ans.push(String.fromCharCode("0".charCodeAt(0) + i));
+            originalT = Math.floor(originalT / i);
         }
-        len++;
     }
+
+    const padding = Math.max(n + 1 - ans.length, 0);
+    for (let i = 0; i < padding; i++) {
+        ans.push("1");
+    }
+
+    return ans.reverse().join("");
 };
+
+function gcd(a, b) {
+    while (b !== 0) {
+        const temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
